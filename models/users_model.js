@@ -319,7 +319,10 @@ exports.changepw = (res, req, next) => {
 };
 
 exports.readData = (res, req) => {
-  connection.query('SELECT * FROM user WHERE email="'+req.email+'"', function (err, rows) {
+  connection.query('SELECT * FROM user u\
+  LEFT JOIN musrif m ON u.kode_user = m.kode_user\
+  LEFT JOIN santri s ON u.kode_user = s.kode_user\
+  WHERE email="'+req.email+'"', function (err, rows) {
       if(!rows.length){
           return res.status(404).json({
               status: false,
