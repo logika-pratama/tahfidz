@@ -19,7 +19,8 @@ const {
   readData,
   registerSantri,
   registerMusrif,
-  changepw
+  changepw,
+  editMusrif
 } = require('../models/users_model');
 
 router.put('/update', [
@@ -81,6 +82,21 @@ router.post('/tambah_musrif', [
       });
   }
   registerMusrif(res, req);
+});
+
+router.post('/update_musrif', [
+  body('nama_musrif').notEmpty(),
+  body('tgl_lahir').notEmpty(),
+  body('telp').notEmpty(),
+  body('hafalan').notEmpty()
+],tokenjwt.verify, function (req, res){
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+      return res.status(422).json({
+          errors: errors.array()
+      });
+  }
+  editMusrif(res, req);
 });
 
 
