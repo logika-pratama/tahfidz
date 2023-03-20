@@ -12,7 +12,8 @@ const {
   editData,
   readData,
   detailData,
-  readDataList
+  readDataList,
+  readDataListDetail,
 } = require('../models/m_mutabaah_model');
 
 router.post('/add', [
@@ -33,6 +34,10 @@ router.get('/list',tokenjwt.verify, function (req, res){
 
 router.get('/mutabaah_list',tokenjwt.verify, function (req, res){
   readDataList(res, req);
+});
+
+router.get('/mutabaah_list_detail/:day/:month/:year',tokenjwt.verify, function (req, res){
+  readDataListDetail(res, req);
 });
 
 router.get('/detail/:id',tokenjwt.verify, function (req, res){

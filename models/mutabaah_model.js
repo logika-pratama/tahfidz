@@ -165,3 +165,25 @@ exports.detailData = (res, req) => {
       }
   })
 };
+
+exports.getCalendar = (res, req) => {
+    connection.query('SELECT * FROM mutabaah \
+    WHERE kode_user ="'+req.kode_user+'" \
+    AND MONTH(tgl_mutabaah) = '+req.params.month+' \
+    AND YEAR(tgl_mutabaah) = "'+req.params.year+'" \
+    AND id_account="'+req.id_account+'" \
+    GROUP BY tgl_mutabaah', function (err, rows) {
+    if(!rows.length){
+          return res.status(404).json({
+              status: false,
+              message: 'Data Mutabaah gagal didapat',
+          })
+    } else {
+          return res.status(201).json({
+              status: true,
+              message: 'success',
+              data:rows,
+          })
+    }
+  })
+};

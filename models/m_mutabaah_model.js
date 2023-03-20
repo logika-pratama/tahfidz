@@ -120,6 +120,32 @@ exports.readDataList = (res, req) => {
     })
 };
 
+exports.readDataListDetail = (res, req) => {
+    bulan = ('0' + (req.params.month)).slice(-2);
+    date2 = req.params.year+'-'+bulan+'-'+req.params.day;
+    connection.query('SELECT * FROM master_mutabaah mm \
+    LEFT JOIN mutabaah_kategori mk ON mk.id_mutabaah_kategori = mm.id_mutabaah_kategori \
+    LEFT JOIN mutabaah m ON m.id_master_mutabaah = mm.id_master_mutabaah AND m.kode_user ="'+req.kode_user+'" AND DATE(m.tgl_mutabaah) = "'+date2+'"\
+    WHERE mm.id_account="'+req.id_account+'" \
+    GROUP BY mm.id_master_mutabaah \
+    ORDER BY mm.urutan ASC \
+    ', function (err, rows) {
+        if(!rows.length){
+            return res.status(404).json({
+                status: false,
+                message: 'Data Mutabaah gagal didapat',
+            })
+        } else {
+            return res.status(201).json({
+                status: true,
+                message: 'success',
+                data:rows,
+                tgl:date2,
+            })
+        }
+    })
+};
+
 exports.detailData = (res, req) => {
   connection.query('SELECT * FROM master_mutabaah WHERE id_master_mutabaah ="'+req.params.id+'" AND id_account="'+req.id_account+'"', function (err, rows) {
       if(!rows.length){

@@ -12,7 +12,8 @@ const {
   editData,
   readData,
   detailData,
-  readDataList
+  readDataList,
+  getCalendar,
 } = require('../models/mutabaah_model');
 
 router.post('/add', [],tokenjwt.verify, function (req, res){
@@ -31,6 +32,10 @@ router.get('/detail/:id',tokenjwt.verify, function (req, res){
   detailData(res, req);
 });
 
+router.get('/getCalendar/:month/:year',tokenjwt.verify, function (req, res){
+  getCalendar(res, req);
+});
+
 router.patch('/edit/:id', [
   body('master_mutabaah').notEmpty(),
 ],tokenjwt.verify, function (req, res){
@@ -42,8 +47,6 @@ router.patch('/edit/:id', [
   }
   editData(res, req)
 });
-
-
 
 router.delete('/delete/(:id)',tokenjwt.verify, function(req, res) {
  deleteData(res, req)

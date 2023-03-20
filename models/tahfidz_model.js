@@ -171,3 +171,30 @@ const date = new Date().toLocaleDateString('en-CA');
       }
   })
 };
+
+exports.getLast = (res, req) => {
+    connection.query('SELECT *,mm.surah as surah_from, mm2.surah as surah_to FROM tahfidz t\
+    LEFT JOIN master_surah mm ON mm.no_surah = t.id_surah_from\
+    LEFT JOIN master_surah mm2 ON mm2.no_surah = t.id_surah_to\
+    WHERE t.kode_user ="'+req.params.id+'" AND t.id_account="'+req.id_account+'" ORDER BY t.id_tahfidz DESC ', function (err, rows) {
+        if(err){
+          return res.status(500).json({
+              status: false,
+              message: 'Data tahfidz gagal didapat',
+              err:err,
+          })
+        }
+        if(!rows.length){
+            return res.status(404).json({
+                status: false,
+                message: 'Data tahfidz gagal didapat',
+            })
+        } else {
+            return res.status(201).json({
+                status: true,
+                message: 'success',
+                data:rows,
+            })
+        }
+    })
+}
