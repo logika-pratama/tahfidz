@@ -147,6 +147,42 @@ exports.readDataList = (res, req) => {
     })
 };
 
+exports.readUserList = (res, req) => {
+    let tanggal = req.body.tanggal_mutabaah;
+
+    tanggal = tanggal.replaceAll(' ', '');
+    tanggal = tanggal.split('-');
+    start = tanggal[0];
+    end = tanggal[1];
+    start = start.replaceAll('/', '-');
+    end = end.replaceAll('/', '-');
+    start = start.split("-");
+    start = start[2]+'-'+start[0]+'-'+start[1]+' 23:59';
+    end = end.split("-");
+    end = end[2]+'-'+end[0]+'-'+end[1]+' 23:59';
+
+    connection.query('SELECT * FROM mutabaah \
+    WHERE kode_user = "'+req.kode_user+'" \
+    AND tgl_mutabaah >= "'+start+'" \
+    AND tgl_mutabaah <= "'+end+'" \
+    AND id_account="'+req.id_account+'" \
+    GROUP BY tgl_mutabaah', function (err, rows) {
+        if(!rows.length){
+            return res.status(201).json({
+                status: false,
+                message: 'Data Mutabaah gagal didapat',
+                data : [],
+            })
+        } else {
+            return res.status(201).json({
+                status: true,
+                message: 'success',
+                data:rows,
+            })
+        }
+    })
+};
+
 exports.detailData = (res, req) => {
     const todaysDate = new Date();
     const date = new Date().toLocaleDateString('en-CA');
@@ -187,3 +223,31 @@ exports.getCalendar = (res, req) => {
     }
   })
 };
+
+
+
+exports.readDataListDetail = (res, req) => {
+    bulan = ('0' + (req.params.month)).slice(-2);
+    date2 = req.params.year+'-'+bulan+'-'+req.params.day;
+    connection.query('SELECT * FROM master_mutabaah mm \
+    LEFT JOIN mutabaah_kategori mk ON mk.id_mutabaah_kategori = mm.id_mutabaah_kategori \
+    LEFT JOIN mutabaah m ON m.id_master_mutabaah = mm.id_master_mutabaah AND m.kode_user ="'+req.kode_user+'" AND DATE(m.tgl_mutabaah) = "'+date2+'"\
+    WHERE mm.id_account="'+req.id_account+'" \
+    GROUP BY mm.id_master_mutabaah \
+    ORDER BY mm.urutan ASC \
+    ', function (err, rows) {
+        if(!rows.length){
+            return res.status(404).json({
+                status: false,
+                message: 'Data Mutabaah gagal didapat',
+            })
+        } else {
+            return res.status(201).json({
+                status: true,
+                message: 'success',
+                data:rows,
+                tgl:date2,
+            })
+        }
+    })
+  };

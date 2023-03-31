@@ -14,6 +14,7 @@ const {
   detailData,
   readDataList,
   readDataSantri,
+  getUserList,
   getLast,
 } = require('../models/tahfidz_model');
 
@@ -46,6 +47,10 @@ router.get('/detail/:id',tokenjwt.verify, function (req, res){
 
 router.get('/getLast/:id',tokenjwt.verify, function (req, res){
   getLast(res, req);
+});
+
+router.post('/resulttahfidz/',[],tokenjwt.verify, function (req, res){
+  getUserList(res, req);
 });
 
 router.get('/detailSantri/:id',tokenjwt.verify, function (req, res){

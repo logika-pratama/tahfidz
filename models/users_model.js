@@ -272,10 +272,33 @@ exports.editMusrif = (res, req, next) => {
     gol_darah: req.body.gol_darah,
     pendidikan: req.body.pendidikan,
     hafalan: req.body.hafalan,
-    gol_darah: req.body.gol_darah,
   }
 
   connection.query('UPDATE musrif SET ? WHERE kode_user = "'+req.kode_user+'"', formData, function (err, rows) {
+      if (err) {
+          return res.status(500).json({
+              status: false,
+              message: 'Internal Server Error',
+          })
+      } else {
+          return res.status(200).json({
+              status: true,
+              message: 'Data Santri berhasil diupdate!'
+          })
+      }
+  })
+};
+
+exports.editSantri = (res, req, next) => {
+  let formData = {
+    nama_santri: req.body.nama_santri,
+    tgl_lahir: req.body.tgl_lahir,
+    telp: '+62'+req.body.telp,
+    alamat: req.body.alamat,
+    gol_darah: req.body.gol_darah,
+  }
+
+  connection.query('UPDATE santri SET ? WHERE kode_user = "'+req.kode_user+'"', formData, function (err, rows) {
       if (err) {
           return res.status(500).json({
               status: false,
@@ -346,7 +369,15 @@ exports.changepw = (res, req, next) => {
 };
 
 exports.readData = (res, req) => {
-  connection.query('SELECT *,m.tgl_lahir as tgl_lahir_m, m.telp as telp_m, m.alamat as alamat_m, m.gol_darah as gol_darah_m FROM user u\
+  connection.query('SELECT *,\
+  s.tgl_lahir as tgl_lahir_s,\
+  s.telp as telp_s,\
+  s.alamat as alamat_s,\
+  s.gol_darah as gol_darah_s,\
+  m.tgl_lahir as tgl_lahir_m,\
+  m.telp as telp_m,\
+  m.alamat as alamat_m,\
+  m.gol_darah as gol_darah_m FROM user u\
   LEFT JOIN musrif m ON u.kode_user = m.kode_user\
   LEFT JOIN santri s ON u.kode_user = s.kode_user\
   WHERE email="'+req.email+'"', function (err, rows) {

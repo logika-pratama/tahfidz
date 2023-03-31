@@ -15,6 +15,7 @@ var halaqah_santriRouter = require('./routes/halaqah_santri');
 var mutabaahRouter = require('./routes/mutabaah');
 var tahfidzRouter = require('./routes/tahfidz');
 var surahRouter = require('./routes/surah');
+var dashboardRouter = require('./routes/dashboard');
 
 
 var app = express();
@@ -41,6 +42,7 @@ app.use('/halaqah_santri', halaqah_santriRouter);
 app.use('/mutabaah', mutabaahRouter);
 app.use('/tahfidz', tahfidzRouter);
 app.use('/surah', surahRouter);
+app.use('/dashboard', dashboardRouter);
 
 
 // catch 404 and forward to error handler

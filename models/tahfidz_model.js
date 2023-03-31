@@ -198,3 +198,47 @@ exports.getLast = (res, req) => {
         }
     })
 }
+
+exports.getUserList = (res, req) => {
+    let tanggal = req.body.tanggal_tahfidz;
+    tanggal = tanggal.replaceAll(' ', '');
+    tanggal = tanggal.split('-');
+    start = tanggal[0];
+    end = tanggal[1];
+    start = start.replaceAll('/', '-');
+    end = end.replaceAll('/', '-');
+    start = start.split("-");
+    start = start[2]+'-'+start[0]+'-'+start[1]+' 23:59';
+    end = end.split("-");
+    end = end[2]+'-'+end[0]+'-'+end[1]+' 23:59';
+
+    connection.query('SELECT *,mm.surah as surah_from, mm2.surah as surah_to FROM tahfidz t\
+    LEFT JOIN master_surah mm ON mm.no_surah = t.id_surah_from\
+    LEFT JOIN master_surah mm2 ON mm2.no_surah = t.id_surah_to\
+    WHERE t.kode_user ="'+req.kode_user+'"\
+    AND t.id_account="'+req.id_account+'"\
+    AND tgl_tahfidz >= "'+start+'" \
+    AND tgl_tahfidz <= "'+end+'" \
+    ORDER BY t.id_tahfidz DESC ', function (err, rows) {
+        if(err){
+          return res.status(500).json({
+              status: false,
+              message: 'Data tahfidz gagal didapat',
+              err:err,
+          })
+        }
+        if(!rows.length){
+            return res.status(201).json({
+                status: false,
+                message: 'Data tahfidz gagal didapat',
+                data : [],
+            })
+        } else {
+            return res.status(201).json({
+                status: true,
+                message: 'success',
+                data:rows,
+            })
+        }
+    })
+}

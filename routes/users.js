@@ -20,6 +20,7 @@ const {
   registerSantri,
   registerMusrif,
   changepw,
+  editSantri,
   editMusrif
 } = require('../models/users_model');
 
@@ -97,6 +98,20 @@ router.post('/update_musrif', [
       });
   }
   editMusrif(res, req);
+});
+
+router.post('/update_santri', [
+  body('nama_santri').notEmpty(),
+  body('tgl_lahir').notEmpty(),
+  body('telp').notEmpty()
+],tokenjwt.verify, function (req, res){
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+      return res.status(422).json({
+          errors: errors.array()
+      });
+  }
+  editSantri(res, req);
 });
 
 

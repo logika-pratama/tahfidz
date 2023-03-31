@@ -14,10 +14,16 @@ const {
   detailData,
   readDataList,
   getCalendar,
+  readUserList,
+  readDataListDetail,
 } = require('../models/mutabaah_model');
 
 router.post('/add', [],tokenjwt.verify, function (req, res){
   addData(res, req);
+});
+
+router.post('/mutabaah_user', [],tokenjwt.verify, function (req, res){
+  readUserList(res, req);
 });
 
 router.get('/list',tokenjwt.verify, function (req, res){
@@ -30,6 +36,10 @@ router.get('/mutabaah_list',tokenjwt.verify, function (req, res){
 
 router.get('/detail/:id',tokenjwt.verify, function (req, res){
   detailData(res, req);
+});
+
+router.get('/resultmutabaah/:day/:month/:year',tokenjwt.verify, function (req, res){
+  readDataListDetail(res, req);
 });
 
 router.get('/getCalendar/:month/:year',tokenjwt.verify, function (req, res){
@@ -51,5 +61,7 @@ router.patch('/edit/:id', [
 router.delete('/delete/(:id)',tokenjwt.verify, function(req, res) {
  deleteData(res, req)
 });
+
+
 
 module.exports = router;
