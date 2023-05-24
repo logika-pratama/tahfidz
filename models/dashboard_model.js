@@ -33,6 +33,13 @@ exports.getHistoryTahfidz = (res, req, next) => {
       LEFT JOIN surah s ON t.id_surah_from = s.id_master_surah \
       WHERE kode_user = "'+req.kode_user+'" \
     ', function (err, rows) {
+      if(err){
+          return res.status(500).json({
+              status: false,
+              message: err.message,
+          })
+      }
+
       return res.status(201).json({
         status : true,
         message : 'success',

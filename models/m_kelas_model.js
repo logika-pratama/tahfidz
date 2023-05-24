@@ -19,7 +19,7 @@ exports.addData = (res, req) => {
             if(err){
                 return res.status(500).json({
                     status: false,
-                    message: 'Kelas gagal ditambah',
+                    message: err.message,
                 })
             } else {
                 return res.status(201).json({
@@ -46,17 +46,23 @@ exports.editData = (res, req) => {
       })
     } else {
       connection.query('UPDATE kelas SET ? WHERE id_kelas = "'+req.params.id+'"', formData, function (err, rows) {
-          if(!rows.length){
-              return res.status(404).json({
-                  status: false,
-                  message: 'Kelas gagal diubah',
-              })
-          } else {
-              return res.status(201).json({
-                  status: true,
-                  message: 'Kelas Berhasil diubah',
-              })
-          }
+        if(err){
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+            })
+        } 
+        if(!rows.length){
+            return res.status(404).json({
+                status: false,
+                message: 'Kelas gagal diubah',
+            })
+        } else {
+            return res.status(201).json({
+                status: true,
+                message: 'Kelas Berhasil diubah',
+            })
+        }
       })
     }
   });
@@ -81,6 +87,12 @@ exports.deleteData = (res, req) => {
 
 exports.readData = (res, req) => {
     connection.query('SELECT * FROM kelas WHERE id_account="'+req.id_account+'"', function (err, rows) {
+        if(err){
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+            })
+        }
         if(!rows.length){
             return res.status(404).json({
                 status: false,
@@ -98,17 +110,23 @@ exports.readData = (res, req) => {
 
 exports.detailData = (res, req) => {
   connection.query('SELECT * FROM kelas WHERE id_kelas ="'+req.params.id+'" AND id_account="'+req.id_account+'"', function (err, rows) {
-      if(!rows.length){
-          return res.status(404).json({
-              status: false,
-              message: 'Data Kelas gagal didapat',
-          })
-      } else {
-          return res.status(201).json({
-              status: true,
-              message: 'success',
-              data:rows,
-          })
-      }
+    if(err){
+        return res.status(500).json({
+            status: false,
+            message: err.message,
+        })
+    }
+    if(!rows.length){
+        return res.status(404).json({
+            status: false,
+            message: 'Data Kelas gagal didapat',
+        })
+    } else {
+        return res.status(201).json({
+            status: true,
+            message: 'success',
+            data:rows,
+        })
+    }
   })
 };

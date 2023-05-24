@@ -5,23 +5,23 @@ module.exports = (sequelize, DataType) => {
         type: DataType.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        allowNull:false
+        allowNull:true
       },
       kode_user: {
         type: DataType.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       email: {
         type: DataType.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       username: {
         type: DataType.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       password: {
         type: DataType.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       token: {
         type: DataType.STRING,
@@ -29,35 +29,35 @@ module.exports = (sequelize, DataType) => {
       },
       date_login: {
         type: DataType.DATE,
-        allowNull:false,
+        allowNull:true,
       },
       status_login: {
         type: DataType.ENUM('offline', 'online'),
-        allowNull:false,
+        allowNull:true,
       },
       generate: {
         type: DataType.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       status_user: {
         type: DataType.ENUM('non-aktif','aktif'),
-        allowNull:false,
+        allowNull:true,
       },
       status_login: {
         type: DataType.ENUM('non-aktif','aktif'),
-        allowNull:false,
+        allowNull:true,
       },
       hakakses: {
         type: DataType.ENUM('musrif','santri','admin','superadmin'),
-        allowNull:false,
+        allowNull:true,
       },
       seq: {
         type: DataType.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       id_account: {
         type: DataType.STRING,
-        allowNull:false,
+        allowNull:true,
       }
     }, {
       tableName : 'user'

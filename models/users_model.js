@@ -16,6 +16,12 @@ exports.loginUsers = (res, req) => {
     LEFT JOIN account a ON u.id_account = a.id_account \
     WHERE u.email="'+req.body.email+'" \
     ', function (err, rows) {
+    if(err){
+        return res.status(500).json({
+            status: false,
+            message: err.message,
+        })
+    }
     if(!rows.length){
       return res.status(404).json({
           status: false,
@@ -71,6 +77,12 @@ exports.registerUsers = (res, req, next) => {
   }
 
   connection.query('SELECT seq FROM user ORDER BY seq DESC', function (err, rows) {
+    if(err){
+      return res.status(500).json({
+          status: false,
+          message: err.message,
+      })
+  }
     if(!rows.length){
       seq = 0;
     } else {
@@ -111,7 +123,7 @@ exports.registerUsers = (res, req, next) => {
             if(err){
                 return res.status(500).json({
                     status: false,
-                    message: 'Internal Server Error',
+                    message: err.message,
                 })
             } else {
                 sendEmail(res, req.body.email);
@@ -156,7 +168,7 @@ exports.registerSantri = (res, req) => {
         if(err){
             return res.status(500).json({
                 status: false,
-                message: 'Internal Server Error',
+                message: err.message,
             })
         } else {
 
@@ -205,7 +217,7 @@ exports.registerMusrif = (res, req) => {
       if(err){
           return res.status(500).json({
               status: false,
-              message: 'Internal Server Error',
+              message: err.message,
           })
       } else {
 
@@ -251,7 +263,7 @@ exports.editProfile = (res, req, next) => {
       if (err) {
           return res.status(500).json({
               status: false,
-              message: 'Internal Server Error',
+              message: err.message,
           })
       } else {
           return res.status(200).json({
@@ -278,7 +290,7 @@ exports.editMusrif = (res, req, next) => {
       if (err) {
           return res.status(500).json({
               status: false,
-              message: 'Internal Server Error',
+              message: err.message,
           })
       } else {
           return res.status(200).json({
@@ -302,7 +314,7 @@ exports.editSantri = (res, req, next) => {
       if (err) {
           return res.status(500).json({
               status: false,
-              message: 'Internal Server Error',
+              message: err.message,
           })
       } else {
           return res.status(200).json({
@@ -326,7 +338,7 @@ exports.forgotpw = (res, req, next) => {
       if (err) {
           return res.status(500).json({
               status: false,
-              message: 'Internal Server Error',
+              message: err.message,
           })
       } else {
           return res.status(200).json({
@@ -381,6 +393,12 @@ exports.readData = (res, req) => {
   LEFT JOIN musrif m ON u.kode_user = m.kode_user\
   LEFT JOIN santri s ON u.kode_user = s.kode_user\
   WHERE email="'+req.email+'"', function (err, rows) {
+      if(err){
+          return res.status(500).json({
+              status: false,
+              message: err.message,
+          })
+      }
       if(!rows.length){
           return res.status(404).json({
               status: false,

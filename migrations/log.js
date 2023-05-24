@@ -12,31 +12,31 @@ module.exports = {
       },
       kode_user: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       nama_user: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       table: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       status: {
         type: Sequelize.FLOAT,
-        allowNull:false,
+        allowNull:true,
       },
       logid: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       payload: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       time: {
         type: Sequelize.DATE,
-        allowNull:false,
+        allowNull:true,
       },
     });
   },

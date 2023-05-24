@@ -12,19 +12,19 @@ module.exports = {
       },
       kode_user: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       email: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       username: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       password: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       token: {
         type: Sequelize.STRING,
@@ -32,31 +32,31 @@ module.exports = {
       },
       date_login: {
         type: Sequelize.DATE,
-        allowNull:false,
+        allowNull:true,
       },
       status_login: {
         type: Sequelize.ENUM('offline', 'online'),
-        allowNull:false,
+        allowNull:true,
       },
       generate: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       status_user: {
         type: Sequelize.ENUM('non-aktif','aktif'),
-        allowNull:false,
+        allowNull:true,
       },
       hakakses_user: {
         type: Sequelize.ENUM('musrif','santri','admin','superadmin'),
-        allowNull:false,
+        allowNull:true,
       },
       seq: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       id_account: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
     });
   },

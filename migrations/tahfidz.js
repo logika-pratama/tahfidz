@@ -12,59 +12,59 @@ module.exports = {
       },
       id_halaqah_santri: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       kode_user: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       nilai_tahfidz: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       id_surah_from: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       ayat_from_first: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       ayat_from_last: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       id_surah_to: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       ayat_to_first: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       ayat_to_last: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       mutqin: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       id_kategori_tahfidz: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       tgl_tahfidz: {
         type: Sequelize.DATE,
-        allowNull:false,
+        allowNull:true,
       },
       komentar_tahfidz: {
         type: Sequelize.TEXT,
-        allowNull:false,
+        allowNull:true,
       },
       id_account: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
     });
   },

@@ -12,15 +12,15 @@ module.exports = {
       },
       id_surah: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       nomer: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       ayat: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
     });
   },

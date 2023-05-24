@@ -21,7 +21,7 @@ exports.addData = (res, req) => {
             if(err){
                 return res.status(500).json({
                     status: false,
-                    message: 'Mutabaah gagal ditambah',
+                    message: err.message,
                 })
             } else {
                 return res.status(201).json({
@@ -50,17 +50,23 @@ exports.editData = (res, req) => {
       })
     } else {
       connection.query('UPDATE master_mutabaah SET ? WHERE id_master_mutabaah = "'+req.params.id+'"', formData, function (err, rows) {
-          if(!rows.length){
-              return res.status(404).json({
-                  status: false,
-                  message: 'Mutabaah gagal diubah',
-              })
-          } else {
-              return res.status(201).json({
-                  status: true,
-                  message: 'Mutabaah Berhasil diubah',
-              })
-          }
+        if(err){
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+            })
+        }
+        if(!rows.length){
+            return res.status(404).json({
+                status: false,
+                message: 'Mutabaah gagal diubah',
+            })
+        } else {
+            return res.status(201).json({
+                status: true,
+                message: 'Mutabaah Berhasil diubah',
+            })
+        }
       })
     }
   });
@@ -85,6 +91,12 @@ exports.deleteData = (res, req) => {
 
 exports.readData = (res, req) => {
     connection.query('SELECT * FROM master_mutabaah WHERE id_account="'+req.id_account+'"', function (err, rows) {
+        if(err){
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+            })
+        }
         if(!rows.length){
             return res.status(404).json({
                 status: false,
@@ -105,6 +117,12 @@ exports.readDataList = (res, req) => {
     LEFT JOIN mutabaah_kategori mk ON mk.id_mutabaah_kategori = mm.id_mutabaah_kategori\
     WHERE mm.id_account="'+req.id_account+'" ORDER BY mm.urutan ASC\
     ', function (err, rows) {
+        if(err){
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+            })
+        }
         if(!rows.length){
             return res.status(404).json({
                 status: false,
@@ -130,6 +148,12 @@ exports.readDataListDetail = (res, req) => {
     GROUP BY mm.id_master_mutabaah \
     ORDER BY mm.urutan ASC \
     ', function (err, rows) {
+        if(err){
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+            })
+        }
         if(!rows.length){
             return res.status(404).json({
                 status: false,
@@ -148,17 +172,23 @@ exports.readDataListDetail = (res, req) => {
 
 exports.detailData = (res, req) => {
   connection.query('SELECT * FROM master_mutabaah WHERE id_master_mutabaah ="'+req.params.id+'" AND id_account="'+req.id_account+'"', function (err, rows) {
-      if(!rows.length){
-          return res.status(404).json({
-              status: false,
-              message: 'Data Mutabaah gagal didapat',
-          })
-      } else {
-          return res.status(201).json({
-              status: true,
-              message: 'success',
-              data:rows,
-          })
-      }
+    if(err){
+        return res.status(500).json({
+            status: false,
+            message: err.message,
+        })
+    }
+    if(!rows.length){
+        return res.status(404).json({
+            status: false,
+            message: 'Data Mutabaah gagal didapat',
+        })
+    } else {
+        return res.status(201).json({
+            status: true,
+            message: 'success',
+            data:rows,
+        })
+    }
   })
 };

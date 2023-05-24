@@ -12,19 +12,19 @@ module.exports = {
       },
       kode_user: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       nama_musrif: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       tgl_lahir: {
         type: Sequelize.DATE,
-        allowNull:false,
+        allowNull:true,
       },
       telp: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       alamat: {
         type: Sequelize.TEXT,
@@ -32,39 +32,39 @@ module.exports = {
       },
       id_provinsi: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       id_kota: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       instansi: {
         type: Sequelize.TEXT,
-        allowNull:false,
+        allowNull:true,
       },
       pendidikan: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       hafalan: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       gol_darah: {
         type: Sequelize.ENUM('A','B','AB','O'),
-        allowNull:false,
+        allowNull:true,
       },
       hakakses_musrif: {
         type: Sequelize.ENUM('musrif','super_musrif'),
-        allowNull:false,
+        allowNull:true,
       },
       status_musrif: {
         type: Sequelize.ENUM('non-akitf','akitf'),
-        allowNull:false,
+        allowNull:true,
       },
       id_account: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
     });
   },

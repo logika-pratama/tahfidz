@@ -64,7 +64,7 @@ const verify = async(req, res, next) =>{
 }
 
 function generate(data) {
-  return jwt.sign(data, process.env.TOKEN_SECRET, { expiresIn: '1h' });
+  return jwt.sign(data, process.env.TOKEN_SECRET, { expiresIn: '3600h' });
 }
 
 const basic_auth = async(req, res, next) =>{

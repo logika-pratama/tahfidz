@@ -24,7 +24,9 @@ exports.activeEmail = (res, req) => {
               message: 'Aktifasi Tidak dikenali',
           });
       } else if(err) {
-        return res.status(500).json({message: 'Error tidak dikenali'});
+        return res.status(500).json({
+          message: err.message
+        });
       } else {
         var seq = rows[0]['seq'];
         var id_account = rows[0]['id_account'];

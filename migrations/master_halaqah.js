@@ -12,19 +12,19 @@ module.exports = {
       },
       id_kelas: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       kode_halaqah: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       halaqah: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       id_account: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
     });
   },

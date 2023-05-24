@@ -20,7 +20,7 @@ exports.addData = (res, req) => {
             if(err){
                 return res.status(500).json({
                     status: false,
-                    message: 'halaqah musrif gagal ditambah',
+                    message: err.message,
                 })
             } else {
                 return res.status(201).json({
@@ -51,7 +51,7 @@ exports.editData = (res, req) => {
           if(err){
               return res.status(404).json({
                   status: false,
-                  message: 'halaqah musrif gagal diubah',
+                  message: err.message,
               })
           } else {
               return res.status(201).json({
@@ -83,6 +83,12 @@ exports.deleteData = (res, req) => {
 
 exports.readData = (res, req) => {
     connection.query('SELECT * FROM halaqah_santri WHERE id_account="'+req.id_account+'"', function (err, rows) {
+        if(err){
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+            })
+        }
         if(!rows.length){
             return res.status(404).json({
                 status: false,
@@ -104,6 +110,12 @@ exports.readDataMustrif = (res, req) => {
     connection.query('SELECT * FROM halaqah_santri hs\
     LEFT JOIN master_halaqah mh ON mh.id_master_halaqah = hs.id_master_halaqah\
     WHERE hs.kode_user="'+req.kode_user+'" AND hs.id_account="'+req.id_account+'" AND hs.tahun_halaqah="'+currentYear+'"', function (err, rows) {
+        if(err){
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+            })
+        }
         if(!rows.length){
             return res.status(404).json({
                 status: false,
@@ -127,6 +139,12 @@ exports.readDataSantri = (res, req) => {
     LEFT JOIN master_halaqah mh ON mh.id_master_halaqah = hss.id_master_halaqah\
     LEFT JOIN santri s ON s.kode_user = hss.kode_user\
     WHERE hss.id_master_halaqah="'+req.params.id+'" AND hss.id_account="'+req.id_account+'" AND hss.tahun_halaqah_santri_sub="'+currentYear+'"', function (err, rows) {
+        if(err){
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+            })
+        }
         if(!rows.length){
             return res.status(404).json({
                 status: false,
@@ -144,17 +162,23 @@ exports.readDataSantri = (res, req) => {
 
 exports.detailData = (res, req) => {
   connection.query('SELECT * FROM halaqah_santri WHERE id_halaqah_santri ="'+req.params.id+'" AND id_account="'+req.id_account+'"', function (err, rows) {
-      if(!rows.length){
-          return res.status(404).json({
-              status: false,
-              message: 'Data halaqah musrif gagal didapat',
-          })
-      } else {
-          return res.status(201).json({
-              status: true,
-              message: 'success',
-              data:rows,
-          })
-      }
+    if(err){
+        return res.status(500).json({
+            status: false,
+            message: err.message,
+        })
+    }
+    if(!rows.length){
+        return res.status(404).json({
+            status: false,
+            message: 'Data halaqah musrif gagal didapat',
+        })
+    } else {
+        return res.status(201).json({
+            status: true,
+            message: 'success',
+            data:rows,
+        })
+    }
   })
 };

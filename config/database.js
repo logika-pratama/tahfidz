@@ -12,7 +12,7 @@ let mysql = require('mysql');
 let connection = mysql.createConnection({
    host:        DB_HOSTNAME,
    user:        DB_USERNAME,
-   password:    '',
+   password:    DB_PASSWORD,
    database:    DB_NAME
  });
 

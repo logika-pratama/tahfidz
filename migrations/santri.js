@@ -12,23 +12,23 @@ module.exports = {
       },
       kode_user: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       nis: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       nama_santri: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       tgl_lahir: {
         type: Sequelize.DATE,
-        allowNull:false,
+        allowNull:true,
       },
       telp: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       alamat: {
         type: Sequelize.TEXT,
@@ -36,23 +36,23 @@ module.exports = {
       },
       id_provinsi: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       id_kota: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       tahun_ajaran: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       gol_darah: {
         type: Sequelize.ENUM('A','B','AB','O'),
-        allowNull:false,
+        allowNull:true,
       },
       id_account: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
     });
   },

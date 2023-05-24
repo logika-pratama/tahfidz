@@ -21,7 +21,7 @@ exports.addData = (res, req) => {
                     if(err){
                         return res.status(500).json({
                             status: false,
-                            message: 'Mutabaah gagal ditambah',
+                            message: err.message,
                         })
                     } 
                 })
@@ -42,7 +42,7 @@ exports.addData = (res, req) => {
                 if(err){
                     return res.status(500).json({
                         status: false,
-                        message: 'Mutabaah gagal ditambah',
+                        message: err.message,
                     })
                 } else {
                     return res.status(201).json({
@@ -77,17 +77,23 @@ exports.editData = (res, req) => {
       })
     } else {
       connection.query('UPDATE master_mutabaah SET ? WHERE id_master_mutabaah = "'+req.params.id+'"', formData, function (err, rows) {
-          if(!rows.length){
-              return res.status(404).json({
-                  status: false,
-                  message: 'Mutabaah gagal diubah',
-              })
-          } else {
-              return res.status(201).json({
-                  status: true,
-                  message: 'Mutabaah Berhasil diubah',
-              })
-          }
+        if(err){
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+            })
+        }
+        if(!rows.length){
+            return res.status(404).json({
+                status: false,
+                message: 'Mutabaah gagal diubah',
+            })
+        } else {
+            return res.status(201).json({
+                status: true,
+                message: 'Mutabaah Berhasil diubah',
+            })
+        }
       })
     }
   });
@@ -112,6 +118,12 @@ exports.deleteData = (res, req) => {
 
 exports.readData = (res, req) => {
     connection.query('SELECT * FROM master_mutabaah WHERE id_account="'+req.id_account+'"', function (err, rows) {
+        if(err){
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+            })
+        }
         if(!rows.length){
             return res.status(404).json({
                 status: false,
@@ -132,6 +144,12 @@ exports.readDataList = (res, req) => {
     LEFT JOIN mutabaah_kategori mk ON mk.id_mutabaah_kategori = mm.id_mutabaah_kategori\
     WHERE mm.id_account="'+req.id_account+'" ORDER BY mm.urutan ASC\
     ', function (err, rows) {
+        if(err){
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+            })
+        }
         if(!rows.length){
             return res.status(404).json({
                 status: false,
@@ -157,9 +175,9 @@ exports.readUserList = (res, req) => {
     start = start.replaceAll('/', '-');
     end = end.replaceAll('/', '-');
     start = start.split("-");
-    start = start[2]+'-'+start[0]+'-'+start[1]+' 23:59';
+    start = start[2]+'-'+start[0]+'-'+start[1];
     end = end.split("-");
-    end = end[2]+'-'+end[0]+'-'+end[1]+' 23:59';
+    end = end[2]+'-'+end[0]+'-'+end[1];
 
     connection.query('SELECT * FROM mutabaah \
     WHERE kode_user = "'+req.kode_user+'" \
@@ -167,6 +185,12 @@ exports.readUserList = (res, req) => {
     AND tgl_mutabaah <= "'+end+'" \
     AND id_account="'+req.id_account+'" \
     GROUP BY tgl_mutabaah', function (err, rows) {
+        if(err){
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+            })
+        }
         if(!rows.length){
             return res.status(201).json({
                 status: false,
@@ -187,7 +211,13 @@ exports.detailData = (res, req) => {
     const todaysDate = new Date();
     const date = new Date().toLocaleDateString('en-CA');
   connection.query('SELECT id_master_mutabaah FROM mutabaah WHERE kode_user ="'+req.params.id+'" AND DATE(tgl_mutabaah) = "'+date+'" AND id_account="'+req.id_account+'"', function (err, rows) {
-      if(!rows.length){
+        if(err){
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+            })
+        }
+        if(!rows.length){
           return res.status(404).json({
               status: false,
               message: 'Data Mutabaah gagal didapat',
@@ -209,45 +239,23 @@ exports.getCalendar = (res, req) => {
     AND YEAR(tgl_mutabaah) = "'+req.params.year+'" \
     AND id_account="'+req.id_account+'" \
     GROUP BY tgl_mutabaah', function (err, rows) {
+    if(err){
+        return res.status(500).json({
+            status: false,
+            message: err.message,
+        })
+    }
     if(!rows.length){
-          return res.status(404).json({
-              status: false,
-              message: 'Data Mutabaah gagal didapat',
-          })
+        return res.status(404).json({
+            status: false,
+            message: 'Data Mutabaah gagal didapat',
+        })
     } else {
-          return res.status(201).json({
-              status: true,
-              message: 'success',
-              data:rows,
-          })
+        return res.status(201).json({
+            status: true,
+            message: 'success',
+            data:rows,
+        })
     }
   })
 };
-
-
-
-exports.readDataListDetail = (res, req) => {
-    bulan = ('0' + (req.params.month)).slice(-2);
-    date2 = req.params.year+'-'+bulan+'-'+req.params.day;
-    connection.query('SELECT * FROM master_mutabaah mm \
-    LEFT JOIN mutabaah_kategori mk ON mk.id_mutabaah_kategori = mm.id_mutabaah_kategori \
-    LEFT JOIN mutabaah m ON m.id_master_mutabaah = mm.id_master_mutabaah AND m.kode_user ="'+req.kode_user+'" AND DATE(m.tgl_mutabaah) = "'+date2+'"\
-    WHERE mm.id_account="'+req.id_account+'" \
-    GROUP BY mm.id_master_mutabaah \
-    ORDER BY mm.urutan ASC \
-    ', function (err, rows) {
-        if(!rows.length){
-            return res.status(404).json({
-                status: false,
-                message: 'Data Mutabaah gagal didapat',
-            })
-        } else {
-            return res.status(201).json({
-                status: true,
-                message: 'success',
-                data:rows,
-                tgl:date2,
-            })
-        }
-    })
-  };

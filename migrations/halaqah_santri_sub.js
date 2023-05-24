@@ -12,19 +12,19 @@ module.exports = {
       },
       id_master_halaqah: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       kode_user: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       tahun_halaqah_santri_sub: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       id_account: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
     });
   },

@@ -21,7 +21,7 @@ exports.addData = (res, req) => {
             if(err){
                 return res.status(500).json({
                     status: false,
-                    message: 'Halaqah gagal ditambah',
+                    message: err.message,
                 })
             } else {
                 return res.status(201).json({
@@ -50,17 +50,23 @@ exports.editData = (res, req) => {
       })
     } else {
       connection.query('UPDATE master_halaqah SET ? WHERE id_master_halaqah = "'+req.params.id+'"', formData, function (err, rows) {
-          if(!rows.length){
+        if(err){
+            return res.status(500).json({
+                status: false,
+                message: err.message,
+            })
+        }  
+        if(!rows.length){
               return res.status(404).json({
                   status: false,
                   message: 'Halaqah gagal diubah',
               })
-          } else {
+        } else {
               return res.status(201).json({
                   status: true,
                   message: 'Halaqah Berhasil diubah',
               })
-          }
+        }
       })
     }
   });
@@ -102,17 +108,23 @@ exports.readData = (res, req) => {
 
 exports.detailData = (res, req) => {
   connection.query('SELECT * FROM master_halaqah WHERE kode_halaqah ="'+req.params.id+'" AND id_account="'+req.id_account+'"', function (err, rows) {
-      if(!rows.length){
-          return res.status(404).json({
-              status: false,
-              message: 'Data Halaqah gagal didapat',
-          })
-      } else {
-          return res.status(201).json({
-              status: true,
-              message: 'success',
-              data:rows,
-          })
-      }
+    if(err){
+        return res.status(500).json({
+            status: false,
+            message: err.message,
+        })
+    }  
+    if(!rows.length){
+        return res.status(404).json({
+            status: false,
+            message: 'Data Halaqah gagal didapat',
+        })
+    } else {
+        return res.status(201).json({
+            status: true,
+            message: 'success',
+            data:rows,
+        })
+    }
   })
 };

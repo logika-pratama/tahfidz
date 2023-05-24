@@ -12,19 +12,19 @@ module.exports = {
       },
       id_master_mutabaah: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       nilai: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       tgl_mutabaah: {
         type: Sequelize.DATE,
-        allowNull:false,
+        allowNull:true,
       },
       id_account: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
     });
   },

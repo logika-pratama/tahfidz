@@ -12,31 +12,31 @@ module.exports = {
       },
       id_pesan: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       kode_user_musirf: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       kode_user_santri: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       tgl_pesan_sub: {
         type: Sequelize.DATE,
-        allowNull:false,
+        allowNull:true,
       },
       judul_pesan_sub: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       read: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       id_account: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
     });
   },

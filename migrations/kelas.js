@@ -12,11 +12,11 @@ module.exports = {
       },
       nama_kelas: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       id_account: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
     });
   },

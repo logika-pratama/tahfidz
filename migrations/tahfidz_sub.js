@@ -12,11 +12,11 @@ module.exports = {
       },
       id_tahfidz: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       id_master_ayat: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
     });
   },

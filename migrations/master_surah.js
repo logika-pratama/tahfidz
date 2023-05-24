@@ -12,11 +12,11 @@ module.exports = {
       },
       surah: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       jumlah_ayat: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
     });
   },

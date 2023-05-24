@@ -9,12 +9,11 @@ const tokenjwt = require('../helper/jwt');
 const { 
   addData,
   deleteData,
-  editData,
   readData,
   detailData,
   readDataList,
+  readDataListUser,
   readDataSantri,
-  getUserList,
   getLast,
 } = require('../models/tahfidz_model');
 
@@ -41,16 +40,16 @@ router.get('/tahfidz_list',tokenjwt.verify, function (req, res){
   readDataList(res, req);
 });
 
+router.post('/tahfidz_user',tokenjwt.verify, function (req, res){
+  readDataListUser(res, req);
+});
+
 router.get('/detail/:id',tokenjwt.verify, function (req, res){
   detailData(res, req);
 });
 
 router.get('/getLast/:id',tokenjwt.verify, function (req, res){
   getLast(res, req);
-});
-
-router.post('/resulttahfidz/',[],tokenjwt.verify, function (req, res){
-  getUserList(res, req);
 });
 
 router.get('/detailSantri/:id',tokenjwt.verify, function (req, res){

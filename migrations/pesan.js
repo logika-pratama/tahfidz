@@ -12,23 +12,23 @@ module.exports = {
       },
       kode_user_pengirim: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       kode_user_Penerima: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       tgl_pesan: {
         type: Sequelize.DATE,
-        allowNull:false,
+        allowNull:true,
       },
       judul_pesan: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       id_account: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
     });
   },

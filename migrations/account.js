@@ -12,19 +12,19 @@ module.exports = {
       },
       id_account: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       name: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       alamat: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       status_account: {
         type: Sequelize.ENUM('non-aktif','aktif'),
-        allowNull:false,
+        allowNull:true,
       },
     });
   },

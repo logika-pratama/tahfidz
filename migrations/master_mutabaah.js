@@ -12,23 +12,23 @@ module.exports = {
       },
       master_mutabaah: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       status_master_mutabaah: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
       id_mutabaah_kategori: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       urutan: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
       },
       id_account: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       },
     });
   },

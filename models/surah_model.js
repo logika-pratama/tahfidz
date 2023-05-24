@@ -7,7 +7,7 @@ exports.list = (res, req) => {
         if(err){
             return res.status(500).json({
                 status: false,
-                message: 'Terjadi Error pada server',
+                message: err.message,
             })
         }
 
@@ -31,7 +31,7 @@ exports.detail = (res, req) => {
         if(err){
             return res.status(500).json({
                 status: false,
-                message: 'Terjadi Error pada server',
+                message: err.message,
             })
         }
 
